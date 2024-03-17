@@ -9,7 +9,7 @@ Tetris game built with React
 **Deployment of Tetris game on Kubernetes and Automating it with argo-cd and terraform via jenkins Pipeline**
 
 ## Project Intoduction
-Today we are going to deploy version of tetris game on aws EKS ckuster for this we are using terraform to create a base instance called the jenkins server and jenkins agent then from this intance we setup pipeline, which build docker image and push it to dockerhub than setup eks cluster and argo cd inside the cluster to deploy our application
+we are going to deploy version of tetris game on aws EKS ckuster for this we are using terraform to create a base instance called the jenkins server and jenkins agent then from this intance we setup pipeline, which build docker image and push it to dockerhub than setup eks cluster and argo cd inside the cluster to deploy our application
 
 ## Completion steps
 Step 1 → Setup Terraform and configure aws on your local machine
