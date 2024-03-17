@@ -112,3 +112,6 @@ dist
 
 #Mac
 .DS_Store
+
+Jenkins-terraform/.terraform.lock.hcl
+Jenkins-terraform/.terraform/

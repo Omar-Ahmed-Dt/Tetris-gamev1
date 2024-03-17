@@ -6,65 +6,43 @@ Tetris game built with React
   <img alt="React tetris " title="#React tetris desktop" src="./images/game.jpg" />
 </h1>
 
+**Deployment of Tetris game on Kubernetes and Automating it with argo-cd and terraform via jenkins Pipeline**
 
-Use Sonarqube block 
-```
-environment {
-        SCANNER_HOME=tool 'sonar-scanner'
-      }
+## Project Intoduction
+Today we are going to deploy version of tetris game on aws EKS ckuster for this we are using terraform to create a base instance called the jenkins server and jenkins agent then from this intance we setup pipeline, which build docker image and push it to dockerhub than setup eks cluster and argo cd inside the cluster to deploy our application
 
-stage("Sonarqube Analysis "){
-            steps{
-                withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Amazon \
-                    -Dsonar.projectKey=Amazon '''
-                }
-            }
-        }
-```        
+## Completion steps
+Step 1 → Setup Terraform and configure aws on your local machine
 
-Owasp block
-```
-stage('OWASP FS SCAN') {
-            steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-        }
-```
+Step 2 → Building a Infrastructure from code using terraform
 
-# ARGO CD SETUP
-https://archive.eksworkshop.com/intermediate/290_argocd/install/
+Step 3 → Setup Sonarqube , jenkins and jenkins agent 
 
-# Image updater stage
-```
- environment {
-    GIT_REPO_NAME = "Tetris-manifest"
-    GIT_USER_NAME = "Aj7Ay"
-  }
-    stage('Checkout Code') {
-      steps {
-        git branch: 'main', url: 'https://github.com/Aj7Ay/Tetris-manifest.git'
-      }
-    }
+Step 4 → ci-cd pipeline to build and push the image to docker hub
 
-    stage('Update Deployment File') {
-      steps {
-        script {
-          withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-            // Determine the image name dynamically based on your versioning strategy
-            NEW_IMAGE_NAME = "sevenajay/tetris77:latest"
+Step 5→ Update Image name In deployment repo
 
-            // Replace the image name in the deployment.yaml file
-            sh "sed -i 's|image: .*|image: $NEW_IMAGE_NAME|' deployment.yml"
+Step 6→ EKS cluster creation
 
-            // Git commands to stage, commit, and push the changes
-            sh 'git add deployment.yml'
-            sh "git commit -m 'Update deployment image to $NEW_IMAGE_NAME'"
-            sh "git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main"
-          }
-        }
-      }
-    }
+Step 7→ Install Argo cd
 
-```
+Step 8 → [Deploy Application with ArgoCD](https://github.com/Omar-Ahmed-Dt/Tetris-deployment-file)
+
+Step 9 → Destruction
+
+---
+
+**Step 1 → Setup Terraform and configure aws on your local machine**
+
+
+
+
+
+
+
+
+
+
+
+
+
